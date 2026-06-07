@@ -29,9 +29,7 @@ export default function SignupPage() {
     });
 
     if (authError) {
-      setError(authError.message === "User already registered"
-        ? "이미 등록된 이메일입니다."
-        : "회원가입 중 오류가 발생했습니다.");
+      setError(`오류: ${authError.message}`);
     } else {
       setSuccess(true);
     }
