@@ -32,16 +32,7 @@ export default function LoginPage() {
     }
 
     if (data.user) {
-      // 승인 여부 확인
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("approved")
-        .eq("id", data.user.id)
-        .single();
-
-      // profile이 없거나 approved가 false이면 pending으로
-      const isApproved = profile?.approved === true;
-      router.push(isApproved ? "/" : "/pending");
+      router.push("/");
     }
     setLoading(false);
   }
