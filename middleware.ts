@@ -30,34 +30,15 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
-  const isPublicPath = pathname === "/login" || pathname === "/signup";
+  const isPublicPath = pathname === "/login" || pathname === "/signup" || pathname === "/pending";
 
   // 비로그인 → 로그인 페이지로
   if (!user && !isPublicPath) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // 로그인 했지만 승인 여부 확인
-  if (user && !isPublicPath && pathname !== "/pending") {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("approved, role")
-      .eq("id", user.id)
-      .single();
-
-    // 승인 안 됐으면 pending 페이지로
-    if (profile && !profile.approved && pathname !== "/pending") {
-      return NextResponse.redirect(new URL("/pending", request.url));
-    }
-
-    // 관리자 전용 경로 보호
-    if (pathname.startsWith("/admin") && profile?.role !== "admin") {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
-
   // 이미 로그인 상태에서 로그인/가입 페이지 접근 → 대시보드로
-  if (user && isPublicPath) {
+  if (user && (pathname === "/login" || pathname === "/signup")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 

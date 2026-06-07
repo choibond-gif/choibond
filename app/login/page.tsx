@@ -39,11 +39,9 @@ export default function LoginPage() {
         .eq("id", data.user.id)
         .single();
 
-      if (!profile?.approved) {
-        router.push("/pending");
-      } else {
-        router.push("/");
-      }
+      // profile이 없거나 approved가 false이면 pending으로
+      const isApproved = profile?.approved === true;
+      router.push(isApproved ? "/" : "/pending");
     }
     setLoading(false);
   }
