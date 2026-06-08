@@ -8,6 +8,7 @@ const navItems = [
   { label: "대시보드", href: "/", icon: "▦" },
   { label: "이벤트 캘린더", href: "/calendar", icon: "📅" },
   { label: "채권 위클리", href: "/weekly", icon: "📊" },
+  { label: "크레딧 모니터", href: "/credit", icon: "📈" },
   { label: "뉴스 모니터", href: "/news", icon: "📰" },
   { label: "브리핑 아카이브", href: "/archive", icon: "🗂" },
   { label: "규정 챗봇", href: "/chatbot", icon: "💬" },
